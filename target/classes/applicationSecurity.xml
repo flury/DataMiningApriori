@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    					http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+                        http://www.springframework.org/schema/security
+                        http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+    <http auto-config="true" access-denied-page="/WEB-INF/jsp/error/403.jsp">
+    	
+    	<intercept-url pattern="/dashboard.pl"							access="ROLE_PROPERTY_INDEX"/>
+    	
+    	<intercept-url pattern="/workflow/request.pl"					access="ROLE_VIEW_LISTING_REQUEST"/>
+    	<intercept-url pattern="/workflow/pending-approve.pl"			access="ROLE_VIEW_LISTING_PENDING_APPROVE"/>
+    	<intercept-url pattern="/workflow/approve/**"					access="ROLE_APPROVE_LISTING"/>
+    	
+    	<intercept-url pattern="/selling-property-primary/**"								access="ROLE_MENU_PROPERTY"/>
+    	<intercept-url pattern="/selling-property-primary/index.pl"							access="ROLE_VIEW_LISTING_PROPERTY_PRIMARY"/>
+    	<intercept-url pattern="/selling-property-agents/register-primary.pl"				access="ROLE_CREATE_LISTING_PRIMARY"/>
+    	<intercept-url pattern="/selling-property-agents/register-secondary.pl"				access="ROLE_CREATE_LISTING_SECONDARY"/>
+    	<intercept-url pattern="/selling-property-primary/view-details.pl/**"				access="ROLE_VIEW_DETAILS_LISTING"/>
+    	
+    	<intercept-url pattern="/selling-property-primary/edit-details-secondary.pl"		access="ROLE_EDIT_DETAIL_SECONDARY"/>
+    	<intercept-url pattern="/selling-property-primary/edit-details.pl"					access="ROLE_EDIT_DETAIL_PRIMARY"/>
+    	
+    	<intercept-url pattern="/user-management/**"										access="ROLE_MENU_APPS, ROLE_MENU_MANAGEMENT"/>
+    	<intercept-url pattern="/user-management/user-profile.pl"							access="ROLE_VIEW_USER_AGENT"/>
+    	<intercept-url pattern="/user-management/user-management/user-profile-add.pl"		access="ROLE_ADD_USER_AGENT"/>
+    	
+    	<intercept-url pattern="/account-setting**" 					access="ROLE_BILLING_USER_ACCOUNT_SETTING"/>
+    	<intercept-url pattern="/user-management/roles.pl" 				access="ROLE_BILLING_USER_ROLES"/>
+    	
+    	<intercept-url pattern="/**" 									access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+    	
+        <!--  set custom login page (override generated login page by Spring Security) -->
+       	<form-login login-page="/login" 
+        	default-target-url="/dashboard.pl"
+        	username-parameter="username"
+        	password-parameter="password"
+        	authentication-failure-url="/login?error" /> 
+       	<logout logout-success-url="/logout"/>
+       	
+		<session-management>
+        	<concurrency-control max-sessions="1"/>
+        </session-management>
+        
+    </http>
+    
+    <authentication-manager>
+		<authentication-provider user-service-ref="authService">
+			 <password-encoder ref="encoder" />
+		</authentication-provider>
+    </authentication-manager>
+    
+    <beans:bean id="encoder" 
+    	class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+    
+</beans:beans>

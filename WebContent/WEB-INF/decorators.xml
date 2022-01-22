@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<decorators defaultdir="/WEB-INF/decorators">
+    
+    <excludes>
+        <pattern>/resources/**</pattern>
+    </excludes>
+    
+    <decorator name="main" page="main.jsp">
+        <pattern>/*</pattern>
+    </decorator>
+    
+    <decorator name="indexguestpage" page="/WEB-INF/jsp/index.jsp" />
+    <decorator name="detailsguestpage" page="/WEB-INF/jsp/details.jsp" />
+    <decorator name="logindasboard" page="/WEB-INF/jsp/login.jsp" />
+    
+    <decorator name="error404page" page="/WEB-INF/jsp/error/404.jsp" />
+    <decorator name="error403page" page="/WEB-INF/jsp/error/403.jsp" />
+    <decorator name="error400page" page="/WEB-INF/jsp/error/400.jsp" />
+    <decorator name="error500page" page="/WEB-INF/jsp/error/500.jsp" />
+    
+</decorators>
