@@ -19,6 +19,7 @@
 		<mapping class="com.datamining.entity.TblActivityLog" />
 		<mapping class="com.datamining.entity.TblDataset" />
 		<mapping class="com.datamining.entity.TblBinominalDataset" />
+		<mapping class="com.datamining.entity.TblFrequentDataSupport" />
 		
 	</session-factory>
 </hibernate-configuration>
