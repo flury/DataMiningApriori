@@ -10,21 +10,15 @@
 		<!-- remove on production -->
 		<property name="show_sql">false</property>
 		<property name="format_sql">false</property>
-		<!-- <property name="hbm2ddl.auto">update</property> -->
+<!-- 		<property name="hbm2ddl.auto">update</property> -->
 		
-<!-- 		<mapping class="com.kamarullah.entity.custom.QryIconicHomepageListing" /> -->
-<!-- 		<mapping class="com.kamarullah.entity.property.TblIcTProperty" /> -->
-<!-- 		<mapping class="com.kamarullah.entity.property.TblIcTPhotos" /> -->
-		 
 		<mapping class="com.datamining.entity.TblUser" />
 		<mapping class="com.datamining.entity.TblUserType" />
 		<mapping class="com.datamining.entity.TblUserPriviledge" />
 		<mapping class="com.datamining.entity.TblUserCommand" />
 		<mapping class="com.datamining.entity.TblActivityLog" />
-		
-<!-- 		<mapping class="com.kamarullah.entity.TblPumpLogger" /> -->
-<!-- 		<mapping class="com.kamarullah.entity.TblConfig" /> -->
-<!-- 		<mapping class="com.kamarullah.entity.TblEmailTemplate" /> -->
+		<mapping class="com.datamining.entity.TblDataset" />
+		<mapping class="com.datamining.entity.TblBinominalDataset" />
 		
 	</session-factory>
 </hibernate-configuration>

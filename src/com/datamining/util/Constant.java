@@ -110,4 +110,25 @@ public class Constant {
 	public static final String ADV_TYPE_POPULAR_PROJECT = "POPULAR_PROJECT";
 	public static final String ADV_TYPE_EXCLUSIVE_LISTING = "EXCLUSIVE_LISTING";
 	
+	public static final String ANGKATAN_13 = "13";
+	public static final String ANGKATAN_14 = "14";
+	public static final String ANGKATAN_15 = "15";
+	public static final String ANGKATAN_16 = "16";
+	public static final String JK_PRIA = "Pria";
+	public static final String JK_WANITA = "Wanita";
+	public static final String PM_BEASISWA = "BEASISWA";
+	public static final String PM_NILAIRAPOR_DOWN_7 = "Nilai Rapor < 7.00";
+	public static final String PM_NILAIRAPOR_UP_7 = "Nilai Rapor >= 7.00";
+	public static final String NS_SMA = "SMA";
+	public static final String NS_SMK = "SMK";
+	public static final String KOTA_SEKOLAH_JAKARTA = "JAKARTA";
+	public static final String KOTA_SEKOLAH_TANGERANG = "TANGERANG";
+	public static final String KOTA_SEKOLAH_LUAR_KOTA = "LUAR KOTA";
+	public static final String JURUSAN_TEKNIK_INFORMATIKA = "TEKNIK INFORMATIKA";
+	public static final String JURUSAN_NON_TEKNIK_INFORMATIKA = "NON TEKNIK INFORMATIKA";
+	public static final BigDecimal IPK = new BigDecimal(3.50);
+	public static final BigDecimal LAMA_STUDI = new BigDecimal(4.00);
+	public static final String PRODI_TEKNIK_INFORMATIKA = "TEKNIK INFORMATIKA";
+	public static final String PRODI_SISTEM_INFORMASI = "SISTEM INFORMASI";
+	
 }

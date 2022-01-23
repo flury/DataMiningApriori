@@ -146,7 +146,7 @@ public class UploadDatasetController {
 					// New TblDataset
 	            	TblDataset dataset = new TblDataset();
 					
-	            	dataset.setAngkatan(new Integer(angkatan));
+	            	dataset.setAngkatan(angkatan);
 	            	dataset.setJenisKelamin(jenisKelamin);
 	            	dataset.setProsesMasuk(prosesMasuk);
 	            	dataset.setNamaSekolah(namaSekolah);
