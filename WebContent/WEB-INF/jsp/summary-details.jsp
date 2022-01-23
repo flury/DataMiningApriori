@@ -5,11 +5,13 @@
 <html>
 <head>
 	<meta charset="utf-8" />
-	<title>Data Mining Processing</title>
+	<title>Summary</title>
 	
 	<meta http-equiv="Content-Type" content="text/html"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<meta name="author" content="Data Mining Apriori"/>
+	
+	<link href="<c:url value="/resources/assets/dist/css/custom.css"/>" rel="stylesheet" type="text/css" />
 </head>
 <body>
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
@@ -19,15 +21,15 @@
 	      <span class="navbar-toggler-icon"></span>
 	    </button>
 	    <div class="collapse navbar-collapse" id="navbarCollapse">
-	       <ul class="navbar-nav me-auto mb-2 mb-md-0">
+	      <ul class="navbar-nav me-auto mb-2 mb-md-0">
 	        <li class="nav-item">
 	          <a class="nav-link" aria-current="page" href="<c:url value="/uploaddataset" />">Upload</a>
 	        </li>
 	        <li class="nav-item">
-	          <a class="nav-link active" href="<c:url value="/datamining-processing" />">Processing</a>
+	          <a class="nav-link" href="<c:url value="/datamining-processing" />">Processing</a>
 	        </li>
 	        <li class="nav-item">
-	          <a class="nav-link" href="<c:url value="/summary" />">Result</a>
+	          <a class="nav-link active" href="<c:url value="/summary" />">Result</a>
 	        </li>
 	      </ul>
 	      <form class="d-flex" action="<c:url value="/logout-success" />" method="POST">
@@ -38,30 +40,35 @@
 	</nav>
 	
 	<main class="container">
-		<h3>Data Mining Processing with Apriori Algoritm</h3>
-		<form action="<c:url value="/execute-datamining-apriori.pl"/>" method="post">
-			<div class="mb-3">
-				<label class="form-label">Min Support</label>
-				<input type="text" class="form-control" id="minSupport" name="minSupport" placeholder="0.40" value="0.40">
-			</div>
-			<div class="mb-3">
-				<label class="form-label">Min Confidence</label>
-				<input type="text" class="form-control" id="minConfidence" name="minConfidence" placeholder="0.40" value="0.40">
-			</div>
-			<div class="mb-3">
-				<label class="form-label">Total Records</label>
-				<input type="text" class="form-control" id="totalRecords" name="totalRecords" placeholder="10" value="10">
-			</div>
-			<div class="mb-3">
-				<button type="submit" class="btn btn-primary">Submit</button>
-			</div>
-		</form>
-		<c:if test="${not empty messagesSuccess}">
-			<div class="alert alert-success" role="alert" style="text-align:left;"><b>${messagesSuccess}</b></div>
-		</c:if>
-		<c:if test="${not empty messagesError}">
-			<div class="alert alert-warning" role="alert" style="text-align:left;"><b>${messagesError}</b></div>
-		</c:if>
+		<div class="d-flex justify-content-between align-items-start">
+			<h3 class="mb-4">Summary Data Apriori Algoritm</h3>
+			<a href="<c:url value="/summary" />" class="btn btn-outline-secondary">Back</a>
+		</div>
+		<div class="card" style="overflow: auto; max-height: calc(100vh - 155px);">
+			<div class="card-body">
+				<h5 class="card-title fw-normal fs-5">Total Data ${totalData}</h5>
+				<table class="table table-striped">
+				  <thead>
+				    <tr style="border-bottom: 1px solid #cfcfcf">
+				      <th scope="col" class="align-middle fw-normal">No</th>
+				      <th scope="col" class="align-middle fw-normal">Itemset</th>
+				      <th scope="col" class="align-middle fw-normal">Candidate</th>
+				      <th scope="col" class="align-middle fw-normal">Support</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				  	<c:forEach items="${listDataset}" var="recs" varStatus="status">
+					  	<tr>
+					      <th scope="row" class="fw-normal">${status.index + 1}</th>
+					      <td>${recs.itemsetNumber}</td>
+					      <td>${recs.candidate}</td>
+					      <td>${recs.support*100}%</td>
+						</tr>
+				  	</c:forEach>
+				  </tbody>
+				</table>
+		 	</div>
+		 </div>
 	</main>
 
     <script src="<c:url value="/resources/assets/dist/js/bootstrap.bundle.min.js"/>"></script>

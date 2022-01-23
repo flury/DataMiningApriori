@@ -7,7 +7,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -24,14 +27,15 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.datamining.entity.TblDataset;
 import com.datamining.services.DatabaseService;
+import com.datamining.services.GenericDaoService;
 import com.datamining.util.Constant;
 import com.opencsv.CSVReader;
 
 @Controller
 public class UploadDatasetController {
 
-//	@Autowired
-//	private GenericDaoService genericDao;
+	@Autowired
+	private GenericDaoService genericDao;
 	
 	@Autowired
 	private DatabaseService databaseService;
@@ -59,6 +63,11 @@ public class UploadDatasetController {
 			modelMap.put("messagesError", messagesError);
 		}
 		
+		Map<String, Object> params = new HashMap<String, Object>();
+		List<?> listDataset = genericDao.runHQL("FROM TblDataset ORDER BY id ASC ", params);
+		modelMap.put("listDataset", listDataset);
+		modelMap.put("totalData", listDataset.size());
+
 		return "/uploaddataset";
 	}
 	

@@ -411,11 +411,11 @@
 		</dependency>
 		
 		<!-- ORACLE database driver -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc6</artifactId>
 			<version>11.2.0</version>
-		</dependency>
+		</dependency> -->
 		<!-- Postgresql Database Driver -->
 	  	<dependency>
 	  		<groupId>org.postgresql</groupId>
@@ -474,11 +474,11 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.lowagie</groupId>
 			<artifactId>iText</artifactId>
 			<version>2.1.7</version>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>aopalliance</groupId>
 			<artifactId>aopalliance</artifactId>

@@ -10,6 +10,8 @@
 	<meta http-equiv="Content-Type" content="text/html"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<meta name="author" content="Data Mining Apriori"/>
+	
+	<link href="<c:url value="/resources/assets/dist/css/custom.css"/>" rel="stylesheet" type="text/css" />
 </head>
 <body>
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
@@ -27,7 +29,7 @@
 	          <a class="nav-link" href="<c:url value="/datamining-processing" />">Processing</a>
 	        </li>
 	        <li class="nav-item">
-	          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Result</a>
+	          <a class="nav-link" href="<c:url value="/summary" />">Result</a>
 	        </li>
 	      </ul>
 	      <form class="d-flex" action="<c:url value="/logout-success" />" method="POST">
@@ -38,22 +40,60 @@
 	</nav>
 	
 	<main class="container">
-		<h3>Upload CSV or Excel Dataset</h3>
+		<h3 class="mb-4">Upload CSV or Excel Dataset</h3>
 		<form action="<c:url value="/save-commit-dataset-file.pl"/>" method="post" enctype="multipart/form-data">
-			<div class="mb-3">
-				<label for="formFile" class="form-label"></label>
-				<input class="form-control" type="file" name="file" id="file">
-			</div>
-			<div class="mb-3">
-				<button type="submit" class="btn btn-primary">Upload</button>
+			<div class="d-flex align-items-end">
+				<div class="mb-3 me-3 w-100">
+					<input class="form-control" type="file" name="file" id="file">
+				</div>
+				<div class="mb-3">
+					<button type="submit" class="btn btn-primary">Upload</button>
+				</div>			
 			</div>
 		</form>
 		<c:if test="${not empty messagesSuccess}">
-			<div class="alert alert-success" role="alert" style="text-align:left;"><b>${messagesSuccess}</b></div>
+			<div class="alert alert-success mb-3" role="alert" style="text-align:left;"><b>${messagesSuccess}</b></div>
 		</c:if>
 		<c:if test="${not empty messagesError}">
-			<div class="alert alert-warning" role="alert" style="text-align:left;"><b>${messagesError}</b></div>
+			<div class="alert alert-warning mb-3" role="alert" style="text-align:left;"><b>${messagesError}</b></div>
 		</c:if>
+		<div class="card" style="overflow: auto; max-height: calc(100vh - 210px);">
+  			<div class="card-body">
+  				<h5 class="card-title fw-normal fs-5">Total Data ${totalData}</h5>
+				<table class="table table-striped">
+				  <thead>
+				    <tr style="border-bottom: 1px solid #cfcfcf">
+				      <th scope="col" class="align-middle fw-normal">No</th>
+				      <th scope="col" class="align-middle fw-normal">Angkatan</th>
+				      <th scope="col" class="align-middle fw-normal">Jenis Kelamain</th>
+				      <th scope="col" class="align-middle fw-normal">Proses Masuk</th>
+				      <th scope="col" class="align-middle fw-normal">Nama Sekolah</th>
+				      <th scope="col" class="align-middle fw-normal">Kota Sekolah</th>
+				      <th scope="col" class="align-middle fw-normal">Jurusan Sekolah</th>
+				      <th scope="col" class="align-middle fw-normal">Prodi</th>
+				      <th scope="col" class="align-middle fw-normal">Lama Studi</th>
+				      <th scope="col" class="align-middle fw-normal">IPK</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				  	<c:forEach items="${listDataset}" var="recs" varStatus="status">
+					  	<tr>
+					      <th scope="row" class="fw-normal">${status.index + 1}</th>
+					      <td>${recs.angkatan}</td>
+					      <td>${recs.jenisKelamin}</td>
+					      <td>${recs.prosesMasuk}</td>
+					      <td>${recs.namaSekolah}</td>
+					      <td>${recs.kotaSekolah}</td>
+					      <td>${recs.jurusanSekolah}</td>
+					      <td>${recs.prodi}</td>
+					      <td>${recs.lamaStudi}</td>
+					      <td>${recs.ipk}</td>
+						</tr>
+				  	</c:forEach>
+				  </tbody>
+				</table>
+		 	</div>
+		</div>
 	</main>
 
     <script src="<c:url value="/resources/assets/dist/js/bootstrap.bundle.min.js"/>"></script>
