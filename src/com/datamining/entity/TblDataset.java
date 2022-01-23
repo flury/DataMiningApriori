@@ -1,19 +1,23 @@
 package com.datamining.entity;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="dataset")
 public class TblDataset {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id", unique = true, nullable = false)
 	private Long id;
 	
@@ -43,6 +47,13 @@ public class TblDataset {
 	
 	@Column(name="ipk")
 	private BigDecimal ipk;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="create_date")
+	private Date createDate;
+	
+	@Column(name="create_user")
+	private String createUser;
 
 	public TblDataset() {
 		
@@ -127,6 +138,21 @@ public class TblDataset {
 	public void setIpk(BigDecimal ipk) {
 		this.ipk = ipk;
 	}
-	
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public String getCreateUser() {
+		return createUser;
+	}
+
+	public void setCreateUser(String createUser) {
+		this.createUser = createUser;
+	}
 
 }
