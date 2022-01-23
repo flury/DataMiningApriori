@@ -38,6 +38,15 @@ public class TblFrequentDataSupport {
 	@Column(name="execute_user")
 	private String executeUser;
 	
+	@Column(name="param_min_support")
+	private Double paramMinSupport;
+	
+	@Column(name="param_total_record")
+	private Integer paramTotalRecord;
+
+	@Column(name="param_min_confidence")
+	private Double paramMinConfidence;
+	
 	public TblFrequentDataSupport() {
 		
 	}
@@ -96,6 +105,30 @@ public class TblFrequentDataSupport {
 
 	public void setExecuteUser(String executeUser) {
 		this.executeUser = executeUser;
+	}
+
+	public Double getParamMinSupport() {
+		return paramMinSupport;
+	}
+
+	public void setParamMinSupport(Double paramMinSupport) {
+		this.paramMinSupport = paramMinSupport;
+	}
+
+	public Integer getParamTotalRecord() {
+		return paramTotalRecord;
+	}
+
+	public void setParamTotalRecord(Integer paramTotalRecord) {
+		this.paramTotalRecord = paramTotalRecord;
+	}
+
+	public Double getParamMinConfidence() {
+		return paramMinConfidence;
+	}
+
+	public void setParamMinConfidence(Double paramMinConfidence) {
+		this.paramMinConfidence = paramMinConfidence;
 	}
 
 }

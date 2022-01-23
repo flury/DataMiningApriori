@@ -248,7 +248,7 @@ public class ProcessingController {
 		    
 		    // initial settings
 		    numItems = 22;
-		    minSup = new Double(0.40);
+		    minSup = minSupport;
 		    //number of transactions
             numTransactions = totalRecords;
             
@@ -262,7 +262,7 @@ public class ProcessingController {
 	            candidates = generateCandidates(itemsetNumber, numItems, candidates);
 	            
 	            //determine and display frequent itemsets
-	            candidates = calculateFrequentItemsets(itemsetNumber, numItems, candidates, numTransactions, binominalInput, minSup, 
+	            candidates = calculateFrequentItemsets(itemsetNumber, numItems, candidates, numTransactions, binominalInput, minSup, minConfidence, 
 	            		frequentDataId, userName);
 	            
 	            if (candidates.size() != 0) {
@@ -280,7 +280,7 @@ public class ProcessingController {
 	 * @param n
 	 */
 	private Vector<String> calculateFrequentItemsets(int n, int numItems, Vector<String> candidates, int numTransactions, 
-			List<String> binominalInput, double minSup, String frequentDataId, String userName) {
+			List<String> binominalInput, double minSup, double minConfidence, String frequentDataId, String userName) {
 		
 		Vector<String> frequentCandidates = new Vector<String>(); //the frequent candidates for the current itemset
         //FileInputStream file_in; //file input stream
@@ -353,6 +353,7 @@ public class ProcessingController {
                         //file_out.write(candidates.get(i) + "," + count[i]/(double)numTransactions + "\n");
                         System.out.println("[output] :> " + candidates.get(i) + "," + count[i]/(double)numTransactions + " itemset-" + n);
                         
+                        // TODO Set Table FrequentDataSupport
                         TblFrequentDataSupport dataSup = new TblFrequentDataSupport();
                         dataSup.setItemsetNumber(n);
                         dataSup.setCandidate(candidates.get(i));
@@ -361,6 +362,9 @@ public class ProcessingController {
                         dataSup.setExecuteUser(userName);
                         dataSup.setId(UUID.randomUUID().toString());
                         dataSup.setFrequentDataId(frequentDataId);
+                        dataSup.setParamMinConfidence(minConfidence);
+                        dataSup.setParamMinSupport(minSup);
+                        dataSup.setParamTotalRecord(numTransactions);
                         databaseService.save(dataSup);
                     }
                 }

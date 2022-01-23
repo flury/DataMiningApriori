@@ -42,15 +42,15 @@
 		<form action="<c:url value="/execute-datamining-apriori.pl"/>" method="post">
 			<div class="mb-3">
 				<label class="form-label">Min Support</label>
-				<input type="number" class="form-control" id="minSupport" name="minSupport" placeholder="0.40" value="0.40">
+				<input type="text" class="form-control" id="minSupport" name="minSupport" placeholder="0.40" value="0.40">
 			</div>
 			<div class="mb-3">
 				<label class="form-label">Min Confidence</label>
-				<input type="number" class="form-control" id="minConfidence" name="minConfidence" placeholder="0.40" value="0.40">
+				<input type="text" class="form-control" id="minConfidence" name="minConfidence" placeholder="0.40" value="0.40">
 			</div>
 			<div class="mb-3">
 				<label class="form-label">Total Records</label>
-				<input type="number" class="form-control" id="totalRecords" name="totalRecords" placeholder="100">
+				<input type="text" class="form-control" id="totalRecords" name="totalRecords" placeholder="100">
 			</div>
 			<div class="mb-3">
 				<button type="submit" class="btn btn-primary">Submit</button>
