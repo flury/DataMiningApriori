@@ -33,9 +33,14 @@
 	
 	<main class="container">
 	  <div class="bg-light p-5 rounded">
-	    <h1>Navbar example</h1>
-	    <p class="lead">This example is a quick exercise to illustrate how the top-aligned navbar works. As you scroll, this navbar remains in its original position and moves with the rest of the page.</p>
-	    <a class="btn btn-lg btn-primary" href="../components/navbar/" role="button">View navbar docs &raquo;</a>
+	    <h1>Data Mining Apriori</h1>
+	    <p class="lead">Adalah aplikasi yang dibuat untuk mencari Frequent Item/Itemset pada transaksional Database.</p>
+	    <p class="lead">Menurut Santoso (2007) data mining sering juga disebut knowledge discovery in database (KDD), adalah kegiatan yang meliputi pengumpulan, pemakaian data historis untuk menemukan keteraturan, pola atau hubungan dalam set data berukuran besar. Kaluaran dari data mining ini bisa dipakai untuk mempebaiki pengambilan keputusan dimasa depan. Sehingga istilah pattern recognition sekarang jarang digunakan karena ia termasuk bagian dari data mining (Albab & Ade, 2015).</p>
+	    <p class="lead">Menurut Agrawal & Srikant (1994) algoritma apriori adalah suatu algoritma dasar untuk menemukan frequent itemsets pada aturan asosiasi boolean. Ide utama pada algoritma apriori adalah:
+Pertama, mencari frequent itemset (himpunan item-item yang memenuhi minimum support) dari basis data transaksi.
+Kedua, menghilangkan itemset dengan frekuensi yang rendah berdasarkan level minimum support yang telah ditentukan sebelumnya.
+Selanjutnya membangun aturan asosiasi dari itemset yang memenuhi nilai minimum confidence dalam basis data (Listriani et al, 2016).</p>
+	    <!-- <a class="btn btn-lg btn-primary" href="../components/navbar/" role="button">View navbar docs &raquo;</a> -->
 	  </div>
 	</main>
 

@@ -272,7 +272,7 @@ public class ProcessingController {
 			
 		}
 		
-		return "redirect:/datamining-processing";
+		return "redirect:/summary";
 	}
 	
 	/**

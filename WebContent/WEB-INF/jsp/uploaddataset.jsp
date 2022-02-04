@@ -65,7 +65,7 @@
 				    <tr style="border-bottom: 1px solid #cfcfcf">
 				      <th scope="col" class="align-middle fw-normal">No</th>
 				      <th scope="col" class="align-middle fw-normal">Angkatan</th>
-				      <th scope="col" class="align-middle fw-normal">Jenis Kelamain</th>
+				      <th scope="col" class="align-middle fw-normal">Jenis Kelamin</th>
 				      <th scope="col" class="align-middle fw-normal">Proses Masuk</th>
 				      <th scope="col" class="align-middle fw-normal">Nama Sekolah</th>
 				      <th scope="col" class="align-middle fw-normal">Kota Sekolah</th>

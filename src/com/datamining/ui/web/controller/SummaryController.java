@@ -64,7 +64,7 @@ public class SummaryController {
 		}
 		
 		Map<String, Object> params = new HashMap<String, Object>();
-		List<?> listDataset = genericDao.runHQL("FROM TblFrequentDataSupport GROUP BY frequentDataId ORDER BY id DESC ", params);
+		List<?> listDataset = genericDao.runHQL("FROM TblFrequentDataSupport GROUP BY frequentDataId ORDER BY executeDate DESC ", params);
 		modelMap.put("listDataset", listDataset);
 		modelMap.put("totalData", listDataset.size());
 		

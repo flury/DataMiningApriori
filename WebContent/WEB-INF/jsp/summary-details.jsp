@@ -44,6 +44,41 @@
 			<h3 class="mb-4">Summary Data Apriori Algoritm</h3>
 			<a href="<c:url value="/summary" />" class="btn btn-outline-secondary">Back</a>
 		</div>
+		<div class="alert alert-success" role="alert">
+			<div class="mb-3">Candidate Definition:</div>
+			<div class="d-flex justify-content-between">
+				<div>
+					<div>1 &nbsp;&nbsp;: Angkatan 13</div>
+					<div>2 &nbsp;&nbsp;: Angkatan 14</div>
+					<div>3 &nbsp;&nbsp;: Angkatan 15</div>
+					<div>4 &nbsp;&nbsp;: Angkatan 16</div>
+					<div>5 &nbsp;&nbsp;: Pria</div>
+					<div>6 &nbsp;&nbsp;: Wanita</div>
+				</div>
+				<div>
+					<div>7 &nbsp;&nbsp;&nbsp;: Beasiswa</div>
+					<div>8 &nbsp;&nbsp;&nbsp;: Nilai Rapor Kurang Dari 7.00</div>
+					<div>9 &nbsp;&nbsp;&nbsp;: Nilai Rapor >= 7.00</div>
+					<div>10 &nbsp;: SMA</div>
+					<div>11 &nbsp;: SMK</div>
+					<div>12 &nbsp;: Jakarta</div>
+				</div>
+				<div>
+					<div>13 &nbsp;&nbsp;: Tangerang</div>
+					<div>14 &nbsp;&nbsp;: Luar Kota</div>
+					<div>15 &nbsp;&nbsp;: Teknik Informatika</div>
+					<div>16 &nbsp;&nbsp;: Non Teknik Informatika</div>
+					<div>17 &nbsp;&nbsp;: Cumlaude (Lebih Dari 3.5)</div>
+					<div>18 &nbsp;&nbsp;: Memuaskan (Kurang Dari = 3.5)</div>
+				</div>
+				<div>
+					<div>19 &nbsp;&nbsp;: Cepat (Kurang Dari = 4)</div>
+					<div>20 &nbsp;&nbsp;: Standar (Lebih Dari 4)</div>
+					<div>21 &nbsp;&nbsp;: TI</div>
+					<div>22 &nbsp;&nbsp;: SI</div>
+				</div>
+			</div>
+		</div>
 		<div class="card" style="overflow: auto; max-height: calc(100vh - 155px);">
 			<div class="card-body">
 				<h5 class="card-title fw-normal fs-5">Total Data ${totalData}</h5>
