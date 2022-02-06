@@ -1,48 +1,26 @@
 package com.datamining.ui.web.controller;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
-import org.joda.time.IllegalFieldValueException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.datamining.entity.TblDataset;
-import com.datamining.services.DatabaseService;
 import com.datamining.services.GenericDaoService;
 import com.datamining.util.Constant;
-import com.opencsv.CSVReader;
 
 @Controller
 public class SummaryDetailsController {
 
 	@Autowired
 	private GenericDaoService genericDao;
-	
-	@Autowired
-	private DatabaseService databaseService;
-	
-	@Autowired
-	private ServletContext servletContext;
 	
 	@Autowired 
 	private HttpSession session;
@@ -71,6 +49,10 @@ public class SummaryDetailsController {
 		modelMap.put("listDataset", listDataset);
 		modelMap.put("totalData", listDataset.size());
 		
+		List<?> listDataConfidence = genericDao.runHQL("FROM TblFrequentDataConfidence WHERE frequentDataId=:frequentDataId "
+				+ "ORDER BY confidence DESC ", params);
+		modelMap.put("listDataConfidence", listDataConfidence);
+		modelMap.put("totalDataConfidence", listDataConfidence.size());
 		
 		return "/summary-details";
 	}

@@ -79,6 +79,8 @@
 				</div>
 			</div>
 		</div>
+		<div class="mb-3 mt-3"></div>
+		 <h3 class="mb-4">Support:</h3>
 		<div class="card" style="overflow: auto; max-height: calc(100vh - 155px);">
 			<div class="card-body">
 				<h5 class="card-title fw-normal fs-5">Total Data ${totalData}</h5>
@@ -98,6 +100,37 @@
 					      <td>${recs.itemsetNumber}</td>
 					      <td>${recs.candidate}</td>
 					      <td>${recs.support*100}%</td>
+						</tr>
+				  	</c:forEach>
+				  </tbody>
+				</table>
+		 	</div>
+		 </div>
+		 <div class="mb-3 mt-3"></div>
+		 <h3 class="mb-4">Confidence:</h3>
+		 <div class="card" style="overflow: auto; max-height: calc(100vh - 155px);">
+			<div class="card-body">
+				<h5 class="card-title fw-normal fs-5">Total Data ${totalDataConfidence}</h5>
+				<table class="table table-striped">
+				  <thead>
+				    <tr style="border-bottom: 1px solid #cfcfcf">
+				      <th scope="col" class="align-middle fw-normal">No</th>
+				      <th scope="col" class="align-middle fw-normal">Candidate (A)</th>
+				      <th scope="col" class="align-middle fw-normal">Support (A1)</th>
+				      <th scope="col" class="align-middle fw-normal">Candidate (B)</th>
+				      <th scope="col" class="align-middle fw-normal">Support (B1)</th>
+				      <th scope="col" class="align-middle fw-normal">Confidence (A1 / B1)</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				  	<c:forEach items="${listDataConfidence}" var="recs" varStatus="status">
+					  	<tr>
+					      <th scope="row" class="fw-normal">${status.index + 1}</th>
+					      <td>${recs.candidateA}</td>
+					      <td><fmt:formatNumber type="percent" maxIntegerDigits="3" maxFractionDigits="2" value="${recs.supportA}" /></td>
+					      <td>${recs.candidateB}</td>
+					      <td><fmt:formatNumber type="percent" maxIntegerDigits="3" maxFractionDigits="2" value="${recs.supportB}" /></td>
+					      <td><fmt:formatNumber type="percent" maxIntegerDigits="3" maxFractionDigits="2" value="${recs.confidence}" /></td>
 						</tr>
 				  	</c:forEach>
 				  </tbody>

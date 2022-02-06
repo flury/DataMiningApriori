@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.datamining.entity.TblBinominalDataset;
 import com.datamining.entity.TblDataset;
+import com.datamining.entity.TblFrequentDataConfidence;
 import com.datamining.entity.TblFrequentDataSupport;
 import com.datamining.services.DatabaseService;
 import com.datamining.services.GenericDaoService;
@@ -235,7 +236,8 @@ public class ProcessingController {
 			
 			/**
 			 * Step 03
-			 * Apriori
+			 * Processing with Algoritm Apriori
+			 * Calculate Support
 			 */
 			Vector<String> candidates = new Vector<String>(); //the current candidates
 			int numItems; //number of items per transaction
@@ -269,6 +271,60 @@ public class ProcessingController {
 	            	System.out.println("Frequent " + itemsetNumber + "-itemsets :: " + candidates);
 	            }
 		    } while(candidates.size() > 1);
+		    
+		    /**
+		     * Step 04
+		     * Start Calculate Confidence
+		     */
+		    String candidateA = "";
+			Double supportA = null;
+			String latestItemsetId = "";
+		    params.clear();
+			params.put("frequentDataId", frequentDataId);
+			List<?> findLatestItemset = genericDao.runHQL("FROM TblFrequentDataSupport WHERE frequentDataId=:frequentDataId "
+					+ "ORDER BY itemsetNumber DESC, support DESC ", params, 1);
+			if (findLatestItemset.size() > 0) {
+				for (int i = 0; i < findLatestItemset.size(); i++) {
+					TblFrequentDataSupport dataSupport = (TblFrequentDataSupport) findLatestItemset.get(i);
+					candidateA = dataSupport.getCandidate();
+					supportA = dataSupport.getSupport();
+					latestItemsetId = dataSupport.getId();
+				}
+			}
+			
+			params.clear();
+			params.put("frequentDataId", frequentDataId);
+			params.put("latestItemsetId", latestItemsetId);
+			List<?> listDataSupport = genericDao.runHQL("FROM TblFrequentDataSupport WHERE frequentDataId=:frequentDataId AND id<>:latestItemsetId "
+					+ "ORDER BY itemsetNumber DESC, support DESC ", params);
+			if (listDataSupport.size() > 0) {
+				
+				for (int i = 0; i < listDataSupport.size(); i++) {
+					TblFrequentDataSupport data = (TblFrequentDataSupport) listDataSupport.get(i);
+					
+					// Calculate
+					String candidateB = data.getCandidate();
+					Double supportB = data.getSupport();
+					Double confidence = supportA / supportB;
+					
+					// Set data confidence
+					TblFrequentDataConfidence dataConfidence = new TblFrequentDataConfidence();
+					dataConfidence.setId(UUID.randomUUID().toString());
+					dataConfidence.setFrequentDataId(frequentDataId);
+					dataConfidence.setCandidateA(candidateA);
+					dataConfidence.setSupportA(supportA);
+					dataConfidence.setCandidateB(candidateB);
+					dataConfidence.setSupportB(supportB);
+					dataConfidence.setConfidence(confidence);
+					dataConfidence.setExecuteUser(userName);
+					dataConfidence.setExecuteDate(new Date());
+					databaseService.save(dataConfidence);
+				}
+			}
+			/**
+		     * Step 04
+		     * End Calculate Confidence
+		     */
 			
 		}
 		
