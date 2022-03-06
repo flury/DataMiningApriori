@@ -1,14 +1,11 @@
 package com.datamining.ui.web.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
 import java.util.UUID;
-import java.util.Vector;
 
 import javax.servlet.http.HttpSession;
 
@@ -20,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.datamining.entity.TblBinominalDataset;
 import com.datamining.entity.TblDataset;
-import com.datamining.entity.TblFrequentDataConfidence;
 import com.datamining.entity.TblFrequentDataSupport;
+import com.datamining.services.AprioriService;
 import com.datamining.services.DatabaseService;
 import com.datamining.services.GenericDaoService;
 import com.datamining.util.Constant;
@@ -34,6 +31,9 @@ public class ProcessingController {
 	
 	@Autowired
 	private DatabaseService databaseService;
+	
+	@Autowired
+	private AprioriService aprioriService;
 	
 	@Autowired
 	private HttpSession session;
@@ -239,86 +239,25 @@ public class ProcessingController {
 			 * Processing with Algoritm Apriori
 			 * Calculate Support
 			 */
-			Vector<String> candidates = new Vector<String>(); //the current candidates
-			int numItems; //number of items per transaction
-		    int numTransactions; //number of transactions
-		    double minSup; //minimum support for a frequent itemset
-		    String oneVal[]; //array of value per column that will be treated as a '1'
-		    String itemSep = " "; //the separator value for items in the database
-		    int itemsetNumber=0; //the current itemset being looked at
-		    String frequentDataId = binominalUid ;
-		    
-		    // initial settings
-		    numItems = 22;
-		    minSup = minSupport;
-		    //number of transactions
-            numTransactions = totalRecords;
-            
-		    
-		    //while not complete
-		    do {
-		    	//increase the itemset that is being looked at
-	            itemsetNumber++;
-	            
-	            //generate the candidates
-	            candidates = generateCandidates(itemsetNumber, numItems, candidates);
-	            
-	            //determine and display frequent itemsets
-	            candidates = calculateFrequentItemsets(itemsetNumber, numItems, candidates, numTransactions, binominalInput, minSup, minConfidence, 
-	            		frequentDataId, userName);
-	            
-	            if (candidates.size() != 0) {
-	            	System.out.println("Frequent " + itemsetNumber + "-itemsets :: " + candidates);
-	            }
-		    } while(candidates.size() > 1);
+			aprioriService.FrequentItemsetSupportGenerator(binominalUid, minSupport, minConfidence, 
+					totalRecords, binominalInput, userName);
 		    
 		    /**
 		     * Step 04
 		     * Start Calculate Confidence
 		     */
-		    String candidateA = "";
-			Double supportA = null;
-			String latestItemsetId = "";
 		    params.clear();
-			params.put("frequentDataId", frequentDataId);
+			params.put("frequentDataId", binominalUid);
 			List<?> findLatestItemset = genericDao.runHQL("FROM TblFrequentDataSupport WHERE frequentDataId=:frequentDataId "
 					+ "ORDER BY itemsetNumber DESC, support DESC ", params, 1);
 			if (findLatestItemset.size() > 0) {
 				for (int i = 0; i < findLatestItemset.size(); i++) {
 					TblFrequentDataSupport dataSupport = (TblFrequentDataSupport) findLatestItemset.get(i);
-					candidateA = dataSupport.getCandidate();
-					supportA = dataSupport.getSupport();
-					latestItemsetId = dataSupport.getId();
-				}
-			}
-			
-			params.clear();
-			params.put("frequentDataId", frequentDataId);
-			params.put("latestItemsetId", latestItemsetId);
-			List<?> listDataSupport = genericDao.runHQL("FROM TblFrequentDataSupport WHERE frequentDataId=:frequentDataId AND id<>:latestItemsetId "
-					+ "ORDER BY itemsetNumber DESC, support DESC ", params);
-			if (listDataSupport.size() > 0) {
-				
-				for (int i = 0; i < listDataSupport.size(); i++) {
-					TblFrequentDataSupport data = (TblFrequentDataSupport) listDataSupport.get(i);
-					
-					// Calculate
-					String candidateB = data.getCandidate();
-					Double supportB = data.getSupport();
-					Double confidence = supportA / supportB;
-					
-					// Set data confidence
-					TblFrequentDataConfidence dataConfidence = new TblFrequentDataConfidence();
-					dataConfidence.setId(UUID.randomUUID().toString());
-					dataConfidence.setFrequentDataId(frequentDataId);
-					dataConfidence.setCandidateA(candidateA);
-					dataConfidence.setSupportA(supportA);
-					dataConfidence.setCandidateB(candidateB);
-					dataConfidence.setSupportB(supportB);
-					dataConfidence.setConfidence(confidence);
-					dataConfidence.setExecuteUser(userName);
-					dataConfidence.setExecuteDate(new Date());
-					databaseService.save(dataConfidence);
+					String candidate = dataSupport.getCandidate();
+					Double atecedentConsequentProb = dataSupport.getSupport();
+					if (dataSupport.getItemsetNumber() != 5) {
+						aprioriService.AssociationRuleGenerator(userName, binominalUid, candidate, atecedentConsequentProb);
+					}
 				}
 			}
 			/**
@@ -329,187 +268,6 @@ public class ProcessingController {
 		}
 		
 		return "redirect:/summary";
-	}
-	
-	/**
-	 * 
-	 * @param n
-	 */
-	private Vector<String> calculateFrequentItemsets(int n, int numItems, Vector<String> candidates, int numTransactions, 
-			List<String> binominalInput, double minSup, double minConfidence, String frequentDataId, String userName) {
-		
-		Vector<String> frequentCandidates = new Vector<String>(); //the frequent candidates for the current itemset
-        //FileInputStream file_in; //file input stream
-        //BufferedReader data_in; //data input stream
-        //FileWriter fw;
-        //BufferedWriter file_out;
-
-        StringTokenizer st, stFile; //tokenizer for candidate and transaction
-        boolean match; //whether the transaction has all the items in an itemset
-        boolean trans[] = new boolean[numItems]; //array to hold a transaction so that can be checked
-        int count[] = new int[candidates.size()]; //the number of successful matches
-
-        String itemSep = " "; //the separator value for items in the database
-        String oneVal[]; //array of value per column that will be treated as a '1'
-		oneVal = new String[numItems];
-		for (int i=0; i<oneVal.length; i++) {
-			oneVal[i] = "1";
-		}
-		System.out.println(Arrays.toString(oneVal));
-			
-        try
-        {
-                //output file
-                //fw= new FileWriter(outputFile, true);
-                //file_out = new BufferedWriter(fw);
-                
-                //load the transaction file
-                //file_in = new FileInputStream(transaFile);
-                //data_in = new BufferedReader(new InputStreamReader(file_in));
-
-                //for each transaction
-                for (int i = 0; i < binominalInput.size(); i++) {
-                	String stDb = binominalInput.get(i);
-                	
-                	stFile = new StringTokenizer(stDb, itemSep); //read a line from the file to the tokenizer
-                	
-                	//put the contents of that line into the transaction array
-                    for(int j=0; j<numItems; j++)
-                    {
-                        trans[j]=(stFile.nextToken().compareToIgnoreCase(oneVal[j])==0); //if it is not a 0, assign the value to true
-                    }
-
-                    //check each candidate
-                    for(int c=0; c<candidates.size(); c++)
-                    {
-                        match = false; //reset match to false
-                        //tokenize the candidate so that we know what items need to be present for a match
-                        st = new StringTokenizer(candidates.get(c));
-                        //check each item in the itemset to see if it is present in the transaction
-                        while(st.hasMoreTokens())
-                        {
-                            match = (trans[Integer.valueOf(st.nextToken())-1]);
-                            if(!match) //if it is not present in the transaction stop checking
-                                break;
-                        }
-                        if(match) //if at this point it is a match, increase the count
-                            count[c]++;
-                    }
-				}
-                
-                
-                for(int i=0; i<candidates.size(); i++)
-                {
-                    //  System.out.println("Candidate: " + candidates.get(c) + " with count: " + count + " % is: " + (count/(double)numItems));
-                    //if the count% is larger than the minSup%, add to the candidate to the frequent candidates
-                    if ((count[i]/(double)numTransactions) >= minSup)
-                    {
-                        frequentCandidates.add(candidates.get(i));
-                        //put the frequent itemset into the output file
-                        //file_out.write(candidates.get(i) + "," + count[i]/(double)numTransactions + "\n");
-                        System.out.println("[output] :> " + candidates.get(i) + "," + count[i]/(double)numTransactions + " itemset-" + n);
-                        
-                        // TODO Set Table FrequentDataSupport
-                        TblFrequentDataSupport dataSup = new TblFrequentDataSupport();
-                        dataSup.setItemsetNumber(n);
-                        dataSup.setCandidate(candidates.get(i));
-                        dataSup.setSupport(count[i]/(double)numTransactions);
-                        dataSup.setExecuteDate(new Date());
-                        dataSup.setExecuteUser(userName);
-                        dataSup.setId(UUID.randomUUID().toString());
-                        dataSup.setFrequentDataId(frequentDataId);
-                        dataSup.setParamMinConfidence(minConfidence);
-                        dataSup.setParamMinSupport(minSup);
-                        dataSup.setParamTotalRecord(numTransactions);
-                        databaseService.save(dataSup);
-                    }
-                }
-                
-                //file_out.write("-\n");
-                //file_out.close();
-        }
-        //if error at all in this process, catch it and print the error messate
-        catch(Exception e) {
-        	e.printStackTrace();
-            System.out.println(e);
-        }
-        //clear old candidates
-        candidates.clear();
-        //new candidates are the old frequent candidates
-        candidates = new Vector<String>(frequentCandidates);
-        frequentCandidates.clear();
-        
-        return candidates;
-	}
-	
-	/**
-	 * Method Name  : generateCandidates
-     * Purpose      : Generate all possible candidates for the n-th itemsets
-     *              : these candidates are stored in the candidates class vector
-     * Parameters   : n - integer value representing the current itemsets to be created
-     * Return       : None
-	 * @param itemsetNumber
-	 */
-	private Vector<String> generateCandidates(int n, int numItems, Vector<String> candidates) {
-		Vector<String> tempCandidates = new Vector<String>(); //temporary candidate string vector
-        String str1, str2; //strings that will be used for comparisons
-        StringTokenizer st1, st2; //string tokenizers for the two itemsets being compared
-        
-        //if its the first set, candidates are just the numbers
-        if (n==1) {
-            for(int i=1; i<=numItems; i++) {
-                tempCandidates.add(Integer.toString(i));
-            }
-        } else if(n==2) //second itemset is just all combinations of itemset 1
-        {
-            //add each itemset from the previous frequent itemsets together
-            for(int i=0; i<candidates.size(); i++)
-            {
-                st1 = new StringTokenizer(candidates.get(i));
-                str1 = st1.nextToken();
-                for(int j=i+1; j<candidates.size(); j++)
-                {
-                    st2 = new StringTokenizer(candidates.elementAt(j));
-                    str2 = st2.nextToken();
-                    tempCandidates.add(str1 + " " + str2);
-                }
-            }
-        }
-        else
-        {
-            //for each itemset
-            for(int i=0; i<candidates.size(); i++)
-            {
-                //compare to the next itemset
-                for(int j=i+1; j<candidates.size(); j++)
-                {
-                    //create the strigns
-                    str1 = new String();
-                    str2 = new String();
-                    //create the tokenizers
-                    st1 = new StringTokenizer(candidates.get(i));
-                    st2 = new StringTokenizer(candidates.get(j));
-
-                    //make a string of the first n-2 tokens of the strings
-                    for(int s=0; s<n-2; s++)
-                    {
-                        str1 = str1 + " " + st1.nextToken();
-                        str2 = str2 + " " + st2.nextToken();
-                    }
-
-                    //if they have the same n-2 tokens, add them together
-                    if(str2.compareToIgnoreCase(str1)==0)
-                        tempCandidates.add((str1 + " " + st1.nextToken() + " " + st2.nextToken()).trim());
-                }
-            }
-        }
-        //clear the old candidates
-        candidates.clear();
-        //set the new ones
-        candidates = new Vector<String>(tempCandidates);
-        tempCandidates.clear();
-        
-        return candidates;
 	}
 	
 }

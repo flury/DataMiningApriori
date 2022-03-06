@@ -27,10 +27,6 @@
     	<property name="maxUploadSize" value="1073741824"/> <!-- 1024 MB = 1073741824 Bytes -->
     </bean>
     
-    <bean id="jasperViewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
-		<property name="basename" value="jasperreport" />
-	</bean>
-    	
 	<bean id="jspViewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:prefix="/WEB-INF/jsp/"

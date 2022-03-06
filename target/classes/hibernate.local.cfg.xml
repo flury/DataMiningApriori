@@ -4,7 +4,6 @@
 "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
 	<session-factory>
-		<!-- <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property> -->
 		<property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
 
 		<!-- remove on production -->
@@ -20,6 +19,8 @@
 		<mapping class="com.datamining.entity.TblDataset" />
 		<mapping class="com.datamining.entity.TblBinominalDataset" />
 		<mapping class="com.datamining.entity.TblFrequentDataSupport" />
+		<mapping class="com.datamining.entity.TblFrequentDataConfidence" />
+		<mapping class="com.datamining.entity.TblMasterItemset" />
 		
 	</session-factory>
 </hibernate-configuration>

@@ -50,7 +50,7 @@
 			</div>
 			<div class="mb-3">
 				<label class="form-label">Total Records</label>
-				<input type="text" class="form-control" id="totalRecords" name="totalRecords" placeholder="10" value="10">
+				<input type="text" class="form-control" id="totalRecords" name="totalRecords" placeholder="1660" value="1660">
 			</div>
 			<div class="mb-3">
 				<button type="submit" class="btn btn-primary">Submit</button>

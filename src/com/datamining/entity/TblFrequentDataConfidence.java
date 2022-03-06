@@ -23,17 +23,20 @@ public class TblFrequentDataConfidence {
 	@Column(name="frequent_data_id")
 	private String frequentDataId;
 	
-	@Column(name="candidate_a")
-	private String candidateA;
+	@Column(name="candidate")
+	private String candidate;
 	
-	@Column(name="support_a")
-	private Double supportA;
+	@Column(name="antecedent_candidate")
+	private String antecedentCandidate;
 	
-	@Column(name="candidate_b")
-	private String candidateB;
+	@Column(name="antecedent_support")
+	private Double antecedentSupport;
 	
-	@Column(name="support_b")
-	private Double supportB;
+	@Column(name="consequent_candidate")
+	private String consequentCandidate;
+	
+	@Column(name="consequent_support")
+	private Double consequentSupport;
 	
 	@Column(name="execute_date")
 	private Date executeDate;
@@ -43,6 +46,12 @@ public class TblFrequentDataConfidence {
 	
 	@Column(name="confidence")
 	private Double confidence;
+	
+	@Column(name="description_antecedent")
+	private String descriptionAntecedent;
+	
+	@Column(name="description_consequent")
+	private String descriptionConsequent;
 	
 	@Column(name="execute_user")
 	private String executeUser;
@@ -67,36 +76,44 @@ public class TblFrequentDataConfidence {
 		this.frequentDataId = frequentDataId;
 	}
 
-	public String getCandidateA() {
-		return candidateA;
+	public String getCandidate() {
+		return candidate;
 	}
 
-	public void setCandidateA(String candidateA) {
-		this.candidateA = candidateA;
+	public void setCandidate(String candidate) {
+		this.candidate = candidate;
 	}
 
-	public Double getSupportA() {
-		return supportA;
+	public String getAntecedentCandidate() {
+		return antecedentCandidate;
 	}
 
-	public void setSupportA(Double supportA) {
-		this.supportA = supportA;
+	public void setAntecedentCandidate(String antecedentCandidate) {
+		this.antecedentCandidate = antecedentCandidate;
 	}
 
-	public String getCandidateB() {
-		return candidateB;
+	public Double getAntecedentSupport() {
+		return antecedentSupport;
 	}
 
-	public void setCandidateB(String candidateB) {
-		this.candidateB = candidateB;
+	public void setAntecedentSupport(Double antecedentSupport) {
+		this.antecedentSupport = antecedentSupport;
 	}
 
-	public Double getSupportB() {
-		return supportB;
+	public String getConsequentCandidate() {
+		return consequentCandidate;
 	}
 
-	public void setSupportB(Double supportB) {
-		this.supportB = supportB;
+	public void setConsequentCandidate(String consequentCandidate) {
+		this.consequentCandidate = consequentCandidate;
+	}
+
+	public Double getConsequentSupport() {
+		return consequentSupport;
+	}
+
+	public void setConsequentSupport(Double consequentSupport) {
+		this.consequentSupport = consequentSupport;
 	}
 
 	public Date getExecuteDate() {
@@ -123,6 +140,22 @@ public class TblFrequentDataConfidence {
 		this.confidence = confidence;
 	}
 
+	public String getDescriptionAntecedent() {
+		return descriptionAntecedent;
+	}
+
+	public void setDescriptionAntecedent(String descriptionAntecedent) {
+		this.descriptionAntecedent = descriptionAntecedent;
+	}
+
+	public String getDescriptionConsequent() {
+		return descriptionConsequent;
+	}
+
+	public void setDescriptionConsequent(String descriptionConsequent) {
+		this.descriptionConsequent = descriptionConsequent;
+	}
+
 	public String getExecuteUser() {
 		return executeUser;
 	}
@@ -130,5 +163,5 @@ public class TblFrequentDataConfidence {
 	public void setExecuteUser(String executeUser) {
 		this.executeUser = executeUser;
 	}
-
+	
 }

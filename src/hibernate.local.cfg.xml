@@ -20,6 +20,7 @@
 		<mapping class="com.datamining.entity.TblBinominalDataset" />
 		<mapping class="com.datamining.entity.TblFrequentDataSupport" />
 		<mapping class="com.datamining.entity.TblFrequentDataConfidence" />
+		<mapping class="com.datamining.entity.TblMasterItemset" />
 		
 	</session-factory>
 </hibernate-configuration>

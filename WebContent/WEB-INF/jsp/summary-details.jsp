@@ -107,7 +107,7 @@
 		 	</div>
 		 </div>
 		 <div class="mb-3 mt-3"></div>
-		 <h3 class="mb-4">Confidence:</h3>
+		 <h3 class="mb-4">Association Rule:</h3>
 		 <div class="card" style="overflow: auto; max-height: calc(100vh - 155px);">
 			<div class="card-body">
 				<h5 class="card-title fw-normal fs-5">Total Data ${totalDataConfidence}</h5>
@@ -115,23 +115,24 @@
 				  <thead>
 				    <tr style="border-bottom: 1px solid #cfcfcf">
 				      <th scope="col" class="align-middle fw-normal">No</th>
-				      <th scope="col" class="align-middle fw-normal">Candidate (A)</th>
-				      <th scope="col" class="align-middle fw-normal">Support (A1)</th>
-				      <th scope="col" class="align-middle fw-normal">Candidate (B)</th>
-				      <th scope="col" class="align-middle fw-normal">Support (B1)</th>
-				      <th scope="col" class="align-middle fw-normal">Confidence (A1 / B1)</th>
+				      <th scope="col" class="align-middle fw-normal">Candidate</th>
+				      <th scope="col" class="align-middle fw-normal">Rule</th>
+				      <th scope="col" class="align-middle fw-normal">Prob(atecedent and consequent)/Prob(atecedent)</th>
+				      <th scope="col" class="align-middle fw-normal">Confidence</th>
+				      <th scope="col" class="align-middle fw-normal">Description</th>
 				    </tr>
 				  </thead>
 				  <tbody>
+				  	<jsp:useBean id="processed" class="java.util.HashMap" />
 				  	<c:forEach items="${listDataConfidence}" var="recs" varStatus="status">
 					  	<tr>
 					      <th scope="row" class="fw-normal">${status.index + 1}</th>
-					      <td>${recs.candidateA}</td>
-					      <td><fmt:formatNumber type="percent" maxIntegerDigits="3" maxFractionDigits="2" value="${recs.supportA}" /></td>
-					      <td>${recs.candidateB}</td>
-					      <td><fmt:formatNumber type="percent" maxIntegerDigits="3" maxFractionDigits="2" value="${recs.supportB}" /></td>
+					      <td><c:if test="${status.index + 1 == 1}">${recs.candidate}</c:if></td>
+					      <td>${recs.antecedentCandidate} -> ${recs.consequentCandidate}</td>
+					      <td><fmt:formatNumber type="percent" maxIntegerDigits="3" maxFractionDigits="2" value="${recs.antecedentSupport}" /> -> <fmt:formatNumber type="percent" maxIntegerDigits="3" maxFractionDigits="2" value="${recs.consequentSupport}" /></td>
 					      <td><fmt:formatNumber type="percent" maxIntegerDigits="3" maxFractionDigits="2" value="${recs.confidence}" /></td>
-						</tr>
+					      <td>${recs.descriptionAntecedent} -> <b>${recs.descriptionConsequent}</b></td>
+					     </tr>
 				  	</c:forEach>
 				  </tbody>
 				</table>
