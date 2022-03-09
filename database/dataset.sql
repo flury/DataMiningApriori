@@ -1,6 +1,4 @@
 /*
- Navicat Premium Data Transfer
-
  Source Server         : Localhost_MySQL_3306
  Source Server Type    : MySQL
  Source Server Version : 50527
