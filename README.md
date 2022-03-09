@@ -1,5 +1,5 @@
 # Data Mining Apriori
-Data mining associate rule using apriori algorithm with java spring boot
+Data mining associate rule using apriori algorithm with java spring framework
 
 Function:
 1. Upload dataset

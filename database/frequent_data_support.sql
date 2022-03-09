@@ -1,5 +1,5 @@
 /*
- Source Server         : Localhost_MySQL_3306
+ Source Server         : iHunter
  Source Server Type    : MySQL
  Source Server Version : 50527
  Source Host           : localhost:3306
@@ -9,7 +9,7 @@
  Target Server Version : 50527
  File Encoding         : 65001
 
- Date: 23/01/2022 23:13:10
+ Date: 10/03/2022 02:33:35
 */
 
 SET NAMES utf8mb4;
@@ -27,8 +27,11 @@ CREATE TABLE `frequent_data_support`  (
   `execute_user` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `execute_date` datetime NULL DEFAULT NULL,
   `frequent_data_id` varchar(40) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `param_min_support` double NULL DEFAULT NULL,
+  `param_total_record` int(11) NULL DEFAULT NULL,
+  `param_min_confidence` double NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `id`(`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 SET FOREIGN_KEY_CHECKS = 1;
