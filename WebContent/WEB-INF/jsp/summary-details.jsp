@@ -123,7 +123,6 @@
 				    </tr>
 				  </thead>
 				  <tbody>
-				  	<jsp:useBean id="processed" class="java.util.HashMap" />
 				  	<c:forEach items="${listDataConfidence}" var="recs" varStatus="status">
 					  	<tr>
 					      <th scope="row" class="fw-normal">${status.index + 1}</th>

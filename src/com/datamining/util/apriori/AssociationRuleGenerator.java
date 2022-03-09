@@ -97,7 +97,7 @@ public class AssociationRuleGenerator<I> {
 		Set<AssociationRule<I>> output = new HashSet<>();
 		Set<I> antecedent = new HashSet<>();
 		Set<I> consequent = new HashSet<>();
-		double itemsetSupportCount = data.getSupportCountMap().get(itemset);
+		//double itemsetSupportCount = data.getSupportCountMap().get(itemset);
 
 		// For each rule ...
 		for (AssociationRule<I> rule : ruleSet) {

@@ -31,7 +31,7 @@ CREATE TABLE `frequent_data_confidence`  (
   `description_antecedent` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
   `description_consequent` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
   `execute_user` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
-  `execute_date` datetime(0) NULL DEFAULT NULL,
+  `execute_date` datetime NULL DEFAULT NULL,
   `param_min_confidence` double NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `id`(`id`) USING BTREE
