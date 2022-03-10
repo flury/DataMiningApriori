@@ -31,12 +31,12 @@ Output:
 
 <img src="images/dm_processing.png" alt="dm_processing" width="800"/>
 
-* Summary List
+* Results
 
 <img src="images/dm_listdata.png" alt="dm_summarylist" width="800"/>
 
 
-* Summary Details
+* Details
 
 <img src="images/dm_details.png" alt="dm_summarydetails" width="800"/>
 
