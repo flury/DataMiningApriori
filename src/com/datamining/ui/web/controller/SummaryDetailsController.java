@@ -55,21 +55,6 @@ public class SummaryDetailsController {
 		modelMap.put("listDataConfidence", listDataConfidence);
 		modelMap.put("totalDataConfidence", listDataConfidence.size());
 		
-		
-		String candidate = "[5, 18]";
-		String candidateFormater = candidate.replace("[", "").replace("]", "").replace(",", "");
-		params.clear();
-		params.put("frequentDataId", frequentDataId);
-		params.put("candidate", candidateFormater);
-		List<?> listDataSupport = genericDao.runHQL("FROM TblFrequentDataSupport "
-				+ "WHERE frequentDataId=:frequentDataId "
-				+ "AND candidate=:candidate ", params);
-		if (listDataSupport.size() > 0) {
-			TblFrequentDataSupport sup = (TblFrequentDataSupport) listDataSupport.get(0);
-			System.out.println(candidateFormater + " candidate >>>>>>>>>>>>>>>>>> " + sup.getSupport());
-		}
-		
-		
 		return "/summary-details";
 	}
 }
