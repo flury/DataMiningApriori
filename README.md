@@ -1,5 +1,5 @@
 # Data Mining Apriori
-Data mining associate rule using apriori algorithm with java spring framework
+Data mining Associate Rule using Apriori Algorithm Implementation in Java Spring Framework
 
 Function:
 1. Upload dataset
@@ -14,6 +14,7 @@ Development stack:
 * Boostrap 5.0
 * Mysql Community Edition
 * Apache Tomcat 8.0
+* Maven Dependency
 
 Available:
 1. Frequently itemset
@@ -40,11 +41,15 @@ Output:
 
 <img src="images/dm_details.png" alt="dm_summarydetails" width="800"/>
 
+Tools:
+
+* https://download.springsource.com/release/STS/3.9.18.RELEASE/dist/e4.21/spring-tool-suite-3.9.18.RELEASE-e4.21.0-win32-x86_64.zip
 
 Reference:
 
 * https://www.javatpoint.com/apriori-algorithm
 * https://www.philippe-fournier-viger.com/spmf/AssociationRules.php
 * https://codereview.stackexchange.com/questions/125372/mining-association-rules-in-java
+* https://github.com/spring-projects/toolsuite-distribution/wiki/Spring-Tool-Suite-3
 
 EOF.
