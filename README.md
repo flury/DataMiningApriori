@@ -21,6 +21,26 @@ Available:
 3. Calculate Support
 4. Calculate Confidence
 
+Output:
+
+* Upload dataset
+
+<img src="images/dm_uploaddataset.png" alt="dm_uploaddataset" width="800"/>
+
+* Processing
+
+<img src="images/dm_processing.png" alt="dm_processing" width="800"/>
+
+* Summary List
+
+<img src="images/dm_listdata.png" alt="dm_summarylist" width="800"/>
+
+
+* Summary Details
+
+<img src="images/dm_details.png" alt="dm_summarydetails" width="800"/>
+
+
 Reference:
 
 * https://www.javatpoint.com/apriori-algorithm
